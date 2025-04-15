@@ -1,0 +1,83 @@
+<div>Teachable Machine Image Model</div>
+<button type="button" id="password" onclick="init1()">Sign the Letter from your Password</button>
+<div id="webcam-container"></div>
+<div id="pLabel-container"></div>
+<div id="success" style = "display:none">
+    <p>Login successful</p>
+    <p><a href="pose.html">Go to Filter Page</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+<script type="text/javascript">
+
+    //##(1) REPLACE the link to your model provided by Teachable Machine export panel
+    const pURL = "REPLACE WITH YOUR TEACHABLE MACHINE SIGN LANGUAGE IMAGE LINK";
+
+    let pModel, pWebcam, pLabelContainer, pMaxPredictions;
+
+    // Load the image model and setup the webcam
+    async function init1() {
+        const modelURL = pURL + "model.json";
+        const metadataURL = pURL + "metadata.json";
+
+        // load the model and metadata
+        // Note: the pose library adds "tmImage" object to your window (window.tmImage)
+        pModel = await tmImage.load(modelURL, metadataURL);
+        pMaxPredictions = pModel.getTotalClasses();
+
+        // Convenience function to setup a webcam
+        const flip = true; // whether to flip the webcam
+        pWebcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
+        await pWebcam.setup(); // request access to the webcam
+        await pWebcam.play();
+        window.requestAnimationFrame(loop);
+
+        // append elements to the DOM
+        document.getElementById("webcam-container").appendChild(pWebcam.canvas);
+        pLabelContainer = document.getElementById("pLabel-container");
+        for (let i = 0; i < pMaxPredictions; i++) { // and class labels
+            pLabelContainer.appendChild(document.createElement("div"));
+        }
+    }
+
+    async function loop() {
+        pWebcam.update(); // update the webcam frame
+        await pPredict();
+        window.requestAnimationFrame(loop);
+    }
+
+    // run the webcam image through the image model
+    async function pPredict() {
+        // predict can take in an image, video or canvas html element
+        const prediction = await pModel.predict(pWebcam.canvas);
+        for (let i = 0; i < pMaxPredictions; i++) {
+            const classPrediction =
+                prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+            pLabelContainer.childNodes[i].innerHTML = classPrediction;
+        }
+        for (let i = 0; i < pMaxPredictions; i++) {
+            allow(prediction[i].className, prediction[i].probability);
+        }
+    }
+    function allow(label, prob) {
+        //##(2)  
+        // Add code so that commented code runs only when the ONE of your sign
+        // language letters with a reasonable probability rate
+        // is recognized
+        /*
+       {
+        //hide button
+        let element = document.getElementById("password");
+        element.style.display = "none";
+        let webcamWindow = document.getElementById("webcam-container");
+        webcamWindow.style.display = "none";
+        let labelStats = document.getElementById("pLabel-container");
+        labelStats.style.display = "none";
+        //display link
+        let filter = document.getElementById("success");
+        filter.style.display = "block";
+       }
+        */
+    }//end allow function
+    
+</script>
