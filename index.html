@@ -11,7 +11,7 @@
 <script type="text/javascript">
 
     //##(1) REPLACE the link to your model provided by Teachable Machine export panel
-    const pURL = "https://teachablemachine.withgoogle.com/models/q1YpdK6fy/";
+    const pURL = "https://teachablemachine.withgoogle.com/models/qsOoLcdmU/";
 
     let pModel, pWebcam, pLabelContainer, pMaxPredictions;
 
@@ -65,7 +65,7 @@
         // language letters with a reasonable probability rate
         // is recognized
        {
-        if(prob >= 0.5){
+        if(label == "E" && prob >= 0.99){
             //hide button
             let element = document.getElementById("password");
             element.style.display = "none";
