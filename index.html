@@ -11,7 +11,7 @@
 <script type="text/javascript">
 
     //##(1) REPLACE the link to your model provided by Teachable Machine export panel
-    const pURL = "REPLACE WITH YOUR TEACHABLE MACHINE SIGN LANGUAGE IMAGE LINK";
+    const pURL = "https://teachablemachine.withgoogle.com/models/q1YpdK6fy/";
 
     let pModel, pWebcam, pLabelContainer, pMaxPredictions;
 
@@ -64,20 +64,20 @@
         // Add code so that commented code runs only when the ONE of your sign
         // language letters with a reasonable probability rate
         // is recognized
-        /*
        {
-        //hide button
-        let element = document.getElementById("password");
-        element.style.display = "none";
-        let webcamWindow = document.getElementById("webcam-container");
-        webcamWindow.style.display = "none";
-        let labelStats = document.getElementById("pLabel-container");
-        labelStats.style.display = "none";
-        //display link
-        let filter = document.getElementById("success");
-        filter.style.display = "block";
+        if(prob >= 0.5){
+            //hide button
+            let element = document.getElementById("password");
+            element.style.display = "none";
+            let webcamWindow = document.getElementById("webcam-container");
+            webcamWindow.style.display = "none";
+            let labelStats = document.getElementById("pLabel-container");
+            labelStats.style.display = "none";
+            //display link
+            let filter = document.getElementById("success");
+            filter.style.display = "block";
+        }
        }
-        */
     }//end allow function
     
 </script>
