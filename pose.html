@@ -13,7 +13,7 @@
 
     //Mrs. Anderson's model [FOR VIDEO]: https://teachablemachine.withgoogle.com/models/1yzYMeBwl/
     //Ethan's model: https://teachablemachine.withgoogle.com/models/q1YpdK6fy/
-    const URL = "https://teachablemachine.withgoogle.com/models/1yzYMeBwl/";
+    const URL = "https://teachablemachine.withgoogle.com/models/q1YpdK6fy/";
     let model, webcam, ctx, labelContainer, maxPredictions;
 
     //##(4) Create variables for image URLs
@@ -162,25 +162,25 @@
         //##(9) call your draw functions here
     
         //DONE
-        if(label = "Y" && prob > 0.9){
+        if(label == "Y" && prob > 0.9){
             drawPurpleSunglasses(pose.keypoints[0].position);
             drawWatermelon(pose.keypoints[0].position);
             drawCrown(pose.keypoints[0].position);
         }
-        if(label = "M" && prob > 0.9){
+        if(label == "M" && prob > 0.9){
             drawMustache(pose.keypoints[0].position);
             drawEyePatch(pose.keypoints[0].position);
             drawPurpleScarf(pose.keypoints[0].position);
         }
        
-        if(label = "C" && prob > 0.9){
+        if(label == "C" && prob > 0.9){
             drawLeftCatEar(pose.keypoints[4].position);
             drawRightCatEar(pose.keypoints[3].position);
             drawCatNose(pose.keypoints[0].position);
         }
         
         //DONE
-        if(label = "A" && prob > 0.9){
+        if(label == "A" && prob > 0.9){
             drawLeftSnowflakeMittens(pose.keypoints[10].position);
             drawRightSnowflakeMittens(pose.keypoints[9].position);
             drawPurpleScarf(pose.keypoints[0].position);
