@@ -10,30 +10,46 @@
 <script type="text/javascript">
     
     //##(3) REPLACE the link to your model provided by Teachable Machine export panel
-    const URL = "https://teachablemachine.withgoogle.com/models/q1YpdK6fy/";
+
+    //Mrs. Anderson's model [FOR VIDEO]: https://teachablemachine.withgoogle.com/models/1yzYMeBwl/
+    //Ethan's model: https://teachablemachine.withgoogle.com/models/q1YpdK6fy/
+    const URL = "https://teachablemachine.withgoogle.com/models/1yzYMeBwl/";
     let model, webcam, ctx, labelContainer, maxPredictions;
 
     //##(4) Create variables for image URLs
-    var purple_sunglasses_URL = "https://codehs.com/uploads/130a1b8c908a59d9d824f2d37f7905c2";
-    var watermelon_URL = "https://codehs.com/uploads/58ef2f00564b717228d91b3df5b2cf6b";
-    var crown_URL = "https://codehs.com/uploads/63c6e68d9cd79e8de657a3c37ddd513c";
+    var purple_sunglasses_URL;
+    var watermelon_URL;
+    var crown_URL;
 
-    var mustache_URL = "https://codehs.com/uploads/3458554ffbe07ac00bce6e005abd128b";
-    var eye_patch_URL = "https://codehs.com/uploads/84d9a0c35927206e1426279a80b2afef";
-    var purple_Scarf_URL = "https://codehs.com/uploads/2be0348a7adbfec4e51f004be7a24340";
+    var mustache_URL;
+    var eye_patch_URL;
+    var purple_scarf_URL;
 
-    var left_cat_ear_URL = "https://codehs.com/uploads/43f8a593e109575e35ef530d3b216374";
-    var right_cat_ear_URL = "https://codehs.com/uploads/87eaeea32e083731db04efdde780b2d1";
-    var cat_nose_URL = "https://codehs.com/uploads/79e9dd6f805201dcc718f26a3daedb95";
+    var left_cat_ear_URL;
+    var right_cat_ear_URL;
+    var cat_nose_URL;
 
-    var left_snowflake_mitten = "https://codehs.com/uploads/c2b865b2fcc8946d49c24f25a43938e4";
-    var right_snowflake_mitten = "https://codehs.com/uploads/4415e0eb95a3547fb1c3f4c7131cd010";
+    var left_snowflake_mitten_URL;
+    var right_snowflake_mitten_URL;
     //purple scarf
 
     //##(5) Create variables for image objects
     
-    
-    
+    var purple_sunglassesIMG;
+    var watermelonIMG;
+    var crownIMG;
+
+    var mustacheIMG;
+    var eye_patchIMG;
+    var purple_scarfIMG;
+
+    var left_cat_earIMG;
+    var right_cat_earIMG;
+    var cat_noseIMG;
+
+    var left_snowflake_mittenIMG;
+    var right_snowflake_mittenIMG;
+    //purple scarf already has IMG
     
     
 
@@ -47,11 +63,37 @@
         maxPredictions = model.getTotalClasses();
         
         //##(6) define image urls
-        
+        purple_sunglasses_URL = "https://codehs.com/uploads/130a1b8c908a59d9d824f2d37f7905c2";
+        watermelon_URL = "https://codehs.com/uploads/58ef2f00564b717228d91b3df5b2cf6b";
+        crown_URL = "https://codehs.com/uploads/63c6e68d9cd79e8de657a3c37ddd513c";
+
+        mustache_URL = "https://codehs.com/uploads/3458554ffbe07ac00bce6e005abd128b";
+        eye_patch_URL = "https://codehs.com/uploads/84d9a0c35927206e1426279a80b2afef";
+        purple_scarf_URL = "https://codehs.com/uploads/2be0348a7adbfec4e51f004be7a24340";
+
+        left_cat_ear_URL = "https://codehs.com/uploads/43f8a593e109575e35ef530d3b216374";
+        right_cat_ear_URL = "https://codehs.com/uploads/87eaeea32e083731db04efdde780b2d1";
+        cat_nose_URL = "https://codehs.com/uploads/79e9dd6f805201dcc718f26a3daedb95";
+
+        left_snowflake_mitten_URL = "https://codehs.com/uploads/c2b865b2fcc8946d49c24f25a43938e4";
+        right_snowflake_mitten_URL = "https://codehs.com/uploads/4415e0eb95a3547fb1c3f4c7131cd010";
         
         
         //##(7) define image variables
-        
+        purple_sunglassesIMG = new Image;
+        watermelonIMG = new Image;
+        crownIMG  = new Image;
+
+        mustacheIMG  = new Image;
+        eye_patchIMG  = new Image;
+        purple_scarfIMG  = new Image;
+
+        left_cat_earIMG  = new Image;
+        right_cat_earIMG  = new Image;
+        cat_noseIMG  = new Image;
+
+        left_snowflake_mittenIMG  = new Image;
+        right_snowflake_mittenIMG  = new Image;
         
         
         
@@ -118,18 +160,147 @@
     
     function drawOther(pose, label, prob) {
         //##(9) call your draw functions here
+    
+        //DONE
+        if(label = "Y" && prob > 0.9){
+            drawPurpleSunglasses(pose.keypoints[0].position);
+            drawWatermelon(pose.keypoints[0].position);
+            drawCrown(pose.keypoints[0].position);
+        }
+        if(label = "M" && prob > 0.9){
+            drawMustache(pose.keypoints[0].position);
+            drawEyePatch(pose.keypoints[0].position);
+            drawPurpleScarf(pose.keypoints[0].position);
+        }
+       
+        if(label = "C" && prob > 0.9){
+            drawLeftCatEar(pose.keypoints[4].position);
+            drawRightCatEar(pose.keypoints[3].position);
+            drawCatNose(pose.keypoints[0].position);
+        }
         
-        
-        
+        //DONE
+        if(label = "A" && prob > 0.9){
+            drawLeftSnowflakeMittens(pose.keypoints[10].position);
+            drawRightSnowflakeMittens(pose.keypoints[9].position);
+            drawPurpleScarf(pose.keypoints[0].position);
+        }
+       /*
+        purple_sunglassesIMG = new Image;
+        watermelonIMG = new Image;
+        crownIMG  = new Image;
+
+        mustacheIMG  = new Image;
+        eye_patchIMG  = new Image;
+        purple_scarfIMG  = new Image;
+
+        left_cat_earIMG  = new Image;
+        right_cat_earIMG  = new Image;
+        cat_noseIMG  = new Image;
+
+        left_snowflake_mittenIMG  = new Image;
+        right_snowflake_mittenIMG  = new Image;
+        */
         
         
         
     }//end function
     
     //##(8) Create your drawImage functions
+    function drawPurpleSunglasses(pos) {
+        purple_sunglassesIMG.onload = function(){
+          ctx.drawImage(purple_sunglassesIMG,pos.x-85, pos.y-110, 170, 170); 
+          // follows this pattern:
+          // ctx.drawImage(img,x position, y position, width, height);
+        };
+        purple_sunglassesIMG.src = purple_sunglasses_URL;
+    }
+
+    function drawWatermelon(pos) {
+        watermelonIMG.onload = function(){
+          ctx.drawImage(watermelonIMG,pos.x-75, pos.y-40, 150, 150); 
+          // follows this pattern:
+          // ctx.drawImage(img,x position, y position, width, height);
+        };
+        watermelonIMG.src = watermelon_URL;
+    }
+
+    function drawCrown(pos) {
+        crownIMG.onload = function(){
+          ctx.drawImage(crownIMG,pos.x-50, pos.y-200, 100, 100); 
+          // follows this pattern:
+          // ctx.drawImage(img,x position, y position, width, height);
+        };
+        crownIMG.src = crown_URL;
+    }
+    function drawMustache(pos) {
+        mustacheIMG.onload = function(){
+          ctx.drawImage(mustacheIMG,pos.x-50, pos.y-30, 100, 100); 
+          // follows this pattern:
+          // ctx.drawImage(img,x position, y position, width, height);
+        };
+        mustacheIMG.src = mustache_URL;
+    }
     
-    
-   
+    function drawEyePatch(pos) {
+        eye_patchIMG.onload = function(){
+          ctx.drawImage(eye_patchIMG,pos.x +10, pos.y -70, 70, 70); 
+          // follows this pattern:
+          // ctx.drawImage(img,x position, y position, width, height);
+        };
+        eye_patchIMG.src = eye_patch_URL;
+    }
+
+    function drawPurpleScarf(pos) {
+        purple_scarfIMG.onload = function(){
+          ctx.drawImage(purple_scarfIMG,pos.x-90, pos.y+ 90, 180, 180); 
+          // follows this pattern:
+          // ctx.drawImage(img,x position, y position, width, height);
+        };
+        purple_scarfIMG.src = purple_scarf_URL;
+    }
+
+    function drawLeftCatEar(pos) {
+        left_cat_earIMG.onload = function(){
+          ctx.drawImage(left_cat_earIMG,pos.x-50, pos.y-150, 100, 100); 
+          // follows this pattern:
+          // ctx.drawImage(img,x position, y position, width, height);
+        };
+        left_cat_earIMG.src = left_cat_ear_URL;
+    }
+    function drawRightCatEar(pos) {
+        right_cat_earIMG.onload = function(){
+          ctx.drawImage(right_cat_earIMG,pos.x-50, pos.y-150, 100, 100); 
+          // follows this pattern:
+          // ctx.drawImage(img,x position, y position, width, height);
+        };
+        right_cat_earIMG.src = right_cat_ear_URL;
+    }
+    function drawCatNose(pos) {
+        cat_noseIMG.onload = function(){
+          ctx.drawImage(cat_noseIMG,pos.x-50, pos.y-30, 100, 100); 
+          // follows this pattern:
+          // ctx.drawImage(img,x position, y position, width, height);
+        };
+        cat_noseIMG.src = cat_nose_URL;
+    }
+    function drawLeftSnowflakeMittens(pos) {
+        left_snowflake_mittenIMG.onload = function(){
+          ctx.drawImage(left_snowflake_mittenIMG,pos.x-75, pos.y-120, 150, 150); 
+          // follows this pattern:
+          // ctx.drawImage(img,x position, y position, width, height);
+        };
+        left_snowflake_mittenIMG.src = left_snowflake_mitten_URL;
+    }
+    function drawRightSnowflakeMittens(pos) {
+        right_snowflake_mittenIMG.onload = function(){
+          ctx.drawImage(right_snowflake_mittenIMG,pos.x-75, pos.y-120, 150, 150); 
+          // follows this pattern:
+          // ctx.drawImage(img,x position, y position, width, height);
+        };
+        right_snowflake_mittenIMG.src = right_snowflake_mitten_URL;
+    }
+
    
    
    
